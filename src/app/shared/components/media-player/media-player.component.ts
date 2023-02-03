@@ -9,26 +9,17 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./media-player.component.css'],
 })
 export class MediaPlayerComponent implements OnDestroy {
-  mockCover: TrackModel = {
-    cover: 'https://i.scdn.co/image/ab67616d0000b27345ca41b0d2352242c7c9d4bc',
-    album: 'NPI',
-    name: 'BEBE',
-    url: 'http://loclahost/track.mp3',
-    _id: 1,
-  };
+  state: string = 'paused';
 
   listObservers$: Subscription[] = [];
 
-  constructor(private multimediaService: MultimediaService) {}
+  constructor(public multimediaService: MultimediaService) {}
 
   ngOnInit(): void {
-    const oberver1$: Subscription = this.multimediaService.callback.subscribe(
-      (response: TrackModel) => {
-        console.log('Recibiendo cancion.....', response);
-      }
+    const observer1$ = this.multimediaService.playerStatus$.subscribe(
+      (status) => (this.state = status)
     );
-
-    this.listObservers$ = [oberver1$];
+    this.listObservers$ = [observer1$];
   }
 
   ngOnDestroy(): void {
