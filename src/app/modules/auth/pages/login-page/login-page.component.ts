@@ -37,7 +37,7 @@ export class LoginPageComponent {
         // console.log('Session iniciada corectamente', responseOK);
         // const { tokenSession, data } = responseOK;
         // this.cookie.set('token', tokenSession, 4, '/');
-        this.router.navigate(['/','tracks'])
+        this.router.navigate(['/', 'tracks']);
       },
       (err) => {
         this.errorSession = true;

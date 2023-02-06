@@ -54,7 +54,7 @@ export class MultimediaService {
   };
 
   private calculateTime = (): void => {
-    console.log('Disparando evento');
+    console.log('Disparando evento para calcular tiempos de cancion');
     const { duration, currentTime } = this.audio;
     this.setTimeElapsed(currentTime);
     this.setTimeRemaining(currentTime, duration);
@@ -95,5 +95,12 @@ export class MultimediaService {
 
   public togglePlayer(): void {
     this.audio.paused ? this.audio.play() : this.audio.pause();
+  }
+
+  public seekAudio(percentage: number): void {
+    const { duration } = this.audio;
+    const percentageToSeconds = (percentage * duration) / 100;
+    console.log('Porcentaje: ', percentage);
+    this.audio.currentTime = percentageToSeconds;
   }
 }
